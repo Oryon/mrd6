@@ -334,7 +334,7 @@ void linux_unicast_router::handle_route_event(bool isnew, nlmsghdr *hdr) {
 	netlink_msg::parse_rtatable(tb, RTA_MAX, RTM_RTA(NLMSG_DATA(hdr)),
 				hdr->nlmsg_len - NLMSG_LENGTH(sizeof(rtmsg)));
 
-	if (tb[RTA_DST]) {
+	//if (tb[RTA_DST]) { /* Accept default routes */
 		lookup_result res;
 
 		parse_prefix_rec(tb, msg->r.rtm_dst_len,
@@ -360,7 +360,7 @@ void linux_unicast_router::handle_route_event(bool isnew, nlmsghdr *hdr) {
 		}
 
 		prefix_changed(isnew, res);
-	}
+	//}
 }
 
 void linux_unicast_router::handle_intf_event(bool isnew, nlmsghdr *hdr) {
