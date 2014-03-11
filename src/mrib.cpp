@@ -327,16 +327,16 @@ mrib_def::mrib_node *mrib_def::prefix_lookup_y(const inet6_addr &source) const {
 void mrib_def::insert_prefix_in_node(mrib_node *n, prefix *p) {
 	prefix *curr = n->head, *prev = 0;
 
-	/* first check the proper place based on distance */
-	while (curr && curr->distance < p->distance) {
+	/* first check the proper place based on metric */
+	while (curr && curr->metric < p->metric) {
 		prev = curr;
 		curr = curr->next;
 	}
 
-	if (prev && prev->distance == p->distance) {
-		/* if distance matches, take metric into place */
+	if (prev && prev->metric == p->metric) {
+		/* if metric matches, take distance into place */
 		curr = prev;
-		while (curr && curr->metric <= p->metric) {
+		while (curr && curr->distance <= p->distance) {
 			prev = curr;
 			curr = curr->next;
 		}
